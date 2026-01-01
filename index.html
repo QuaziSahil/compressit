@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compress It - Image Compressor</title>
+    <meta name="description"
+        content="Compress your images instantly while maintaining quality. Free, fast, and private - everything happens in your browser.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8144222817767750"
+        crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">◆</span>
+                <span class="logo-text">Compress<span class="logo-accent">It</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Compress Images
+                    <span class="gradient-text">Instantly</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Reduce file size up to 90% while maintaining stunning quality.
+                    <br>100% free. 100% private. Works in your browser.
+                </p>
+            </div>
+
+            <!-- Upload Zone -->
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-content">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                    </div>
+                    <h3 class="upload-title">Drop your image here</h3>
+                    <p class="upload-hint">or click to browse</p>
+                    <p class="upload-formats">Supports: JPG, PNG, WebP, GIF</p>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" hidden>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compression Panel (Hidden until image uploaded) -->
+    <section class="compression-panel" id="compressionPanel">
+        <div class="container">
+            <div class="panel-card">
+                <!-- Preview Area -->
+                <div class="preview-area">
+                    <div class="preview-box">
+                        <span class="preview-label">Original</span>
+                        <img id="originalPreview" src="" alt="Original">
+                        <div class="file-info" id="originalInfo">
+                            <span class="file-size">0 KB</span>
+                        </div>
+                    </div>
+                    <div class="preview-arrow">→</div>
+                    <div class="preview-box">
+                        <span class="preview-label">Compressed</span>
+                        <img id="compressedPreview" src="" alt="Compressed">
+                        <div class="file-info" id="compressedInfo">
+                            <span class="file-size">0 KB</span>
+                            <span class="savings" id="savings">-0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <h3 class="controls-title">Customize <span class="gradient-text">Compression</span></h3>
+                <div class="controls">
+                    <div class="control-group">
+                        <label class="control-label">Quality</label>
+                        <div class="slider-container">
+                            <input type="range" id="qualitySlider" min="1" max="100" value="80" class="slider">
+                            <span class="slider-value" id="qualityValue">80%</span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Custom Size (optional)</label>
+                        <div class="size-inputs">
+                            <div class="size-input-group">
+                                <input type="number" id="widthInput" placeholder="Width" class="size-input">
+                                <span class="size-unit">px</span>
+                            </div>
+                            <span class="size-separator">×</span>
+                            <div class="size-input-group">
+                                <input type="number" id="heightInput" placeholder="Height" class="size-input">
+                                <span class="size-unit">px</span>
+                            </div>
+                            <label class="aspect-ratio-toggle">
+                                <input type="checkbox" id="aspectRatio" checked>
+                                <span class="checkmark">🔗</span>
+                                <span>Lock ratio</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label">Output Format</label>
+                        <div class="format-buttons">
+                            <button class="format-btn active" data-format="image/jpeg">JPEG</button>
+                            <button class="format-btn" data-format="image/png">PNG</button>
+                            <button class="format-btn" data-format="image/webp">WebP</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="actions">
+                    <button class="btn btn-secondary" id="resetBtn">
+                        <span>↺</span> Reset
+                    </button>
+                    <button class="btn btn-primary" id="downloadBtn">
+                        <span>↓</span> Download Compressed
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose <span class="gradient-text">CompressIt</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Compress images in milliseconds. No waiting, no uploads to slow servers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Private</h3>
+                    <p>Your images never leave your device. Everything happens in your browser.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>Quality First</h3>
+                    <p>Smart compression maintains visual quality while dramatically reducing size.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Full Control</h3>
+                    <p>Adjust quality, resize dimensions, and choose output format.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <h2 class="section-title">About <span class="gradient-text">Us</span></h2>
+                <p class="about-text">
+                    CompressIt was built with one goal: make image compression simple, fast, and private.
+                    We believe your images are your business, which is why everything happens right in your browser.
+                </p>
+                <p class="about-text">
+                    No sign-ups. No file uploads. No tracking. Just pure, efficient image compression
+                    that respects your privacy and delivers results in milliseconds.
+                </p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Free Forever</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Data Collected</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">∞</span>
+                        <span class="stat-label">Images Supported</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="logo-icon">◆</span>
+                    <span class="logo-text">Compress<span class="logo-accent">It</span></span>
+                </div>
+                <p class="footer-text">Made with ♥ for the web</p>
+                <p class="footer-copyright">© 2025 CompressIt. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
